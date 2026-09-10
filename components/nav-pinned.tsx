@@ -20,9 +20,18 @@ export function NavPinned({ pinned }: { pinned: SidebarPinnedItem[] }) {
       <SidebarMenu>
         {pinned.map((item) =>
           item.type === "thread" ? (
-            <NavThreadItem key={item.id} thread={item.thread} isMobile={isMobile} />
+            <NavThreadItem
+              key={item.id}
+              thread={item.thread}
+              isMobile={isMobile}
+              isPinned
+            />
           ) : (
-            <NavProjectItem key={item.id} project={item.project} />
+            <NavProjectItem
+              key={item.id}
+              project={item.project}
+              isPinned
+            />
           )
         )}
       </SidebarMenu>

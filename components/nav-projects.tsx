@@ -1,4 +1,26 @@
-import { MoreHorizontal } from "lucide-react"
+"use client"
+
+import {
+  Archive,
+  Folder,
+  MoreHorizontal,
+  Pencil,
+  Pin,
+  PinOff,
+  Trash,
+} from "lucide-react"
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 import {
   Collapsible,
@@ -16,21 +38,16 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
+import type { SidebarProject, SidebarThread } from "@/data/sidebar"
 
 export function NavProjects({
   label = "Projects",
   projects,
 }: {
   label?: string
-  projects: {
-    name: string
-    emoji: React.ReactNode
-    pages: {
-      name: string
-      emoji: React.ReactNode
-    }[]
-  }[]
+  projects: SidebarProject[]
 }) {
   return (
     <SidebarGroup>
@@ -50,13 +67,13 @@ export function NavProjects({
 
 export function NavProjectItem({
   project,
+  isPinned = false,
 }: {
-  project: {
-    name: string
-    emoji: React.ReactNode
-    pages: { name: string; emoji: React.ReactNode }[]
-  }
+  project: SidebarProject
+  isPinned?: boolean
 }) {
+  const { isMobile } = useSidebar()
+
   return (
     <Collapsible>
       <SidebarMenuItem>
@@ -71,24 +88,140 @@ export function NavProjectItem({
           <span>{project.emoji}</span>
           <span>{project.name}</span>
         </CollapsibleTrigger>
-        <SidebarMenuAction
-          showOnHover
-          aria-label={`More options for ${project.name}`}
-        >
-          <MoreHorizontal />
-        </SidebarMenuAction>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <SidebarMenuAction
+                // {/* Show the parent action only when the parent row is hovered or focused. */}
+                className="opacity-0 aria-expanded:opacity-100 md:opacity-0 peer-focus-visible/menu-button:opacity-100 peer-hover/menu-button:opacity-100"
+                aria-label={`Actions for ${project.name}`}
+              />
+            }
+          >
+            <MoreHorizontal />
+            <span className="sr-only">More</span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-48"
+            side={isMobile ? "bottom" : "right"}
+            align={isMobile ? "end" : "start"}
+          >
+            <DropdownMenuItem>
+              <Pencil className="text-muted-foreground" />
+              <span>Edit details</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              {isPinned ? (
+                <PinOff className="text-muted-foreground" />
+              ) : (
+                <Pin className="text-muted-foreground" />
+              )}
+              <span>{isPinned ? "Unpinned" : "Pin"}</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Archive className="text-muted-foreground" />
+              <span>Archive</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">
+              <Trash />
+              <span>Delete</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <CollapsibleContent>
-          <SidebarMenuSub>
+          <SidebarMenuSub
+            // {/* Remove the submenu's default right spacing to align child rows with the parent. */}
+            className="mr-0 pr-0"
+          >
             {project.pages.map((page) => (
-              <SidebarMenuSubItem key={page.name}>
-                <SidebarMenuSubButton render={<a href="#" />}>
-                  <span>{page.name}</span>
-                </SidebarMenuSubButton>
-              </SidebarMenuSubItem>
+              <NavProjectPageItem
+                key={page.name}
+                page={page}
+                isMobile={isMobile}
+              />
             ))}
           </SidebarMenuSub>
         </CollapsibleContent>
       </SidebarMenuItem>
     </Collapsible>
+  )
+}
+
+function NavProjectPageItem({
+  page,
+  isMobile,
+}: {
+  page: SidebarThread
+  isMobile: boolean
+}) {
+  return (
+    <SidebarMenuSubItem>
+      <SidebarMenuSubButton
+        render={<a href={page.url} title={page.name} aria-label={page.name} />}
+        // {/* Reserve room for the action button and... 
+        className="pr-8 w-full"
+      >
+        <span
+          // ...truncate long page names with an ellipsis. */}
+          className="min-w-0 truncate"
+        >
+          {page.name}
+        </span>
+      </SidebarMenuSubButton>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <SidebarMenuAction
+              // {/* Keep child actions scoped to the hovered or focused child row. */}
+              className="top-1 opacity-0 aria-expanded:opacity-100 md:opacity-0 group-focus-within/menu-sub-item:opacity-100 group-hover/menu-sub-item:opacity-100"
+              aria-label={`Actions for ${page.name}`}
+            />
+          }
+        >
+          <MoreHorizontal />
+          <span className="sr-only">More</span>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className="w-48"
+          side={isMobile ? "bottom" : "right"}
+          align={isMobile ? "end" : "start"}
+        >
+          <DropdownMenuItem>
+            <Pencil className="text-muted-foreground" />
+            <span>Rename</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <Pin className="text-muted-foreground" />
+            <span>Pin</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Archive className="text-muted-foreground" />
+            <span>Archive</span>
+          </DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Folder className="text-muted-foreground" />
+              <span>Move to Project</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-40">
+                <DropdownMenuItem>New Project</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Email</DropdownMenuItem>
+                <DropdownMenuItem>Message</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem variant="destructive">
+            <Trash />
+            <span>Delete</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </SidebarMenuSubItem>
   )
 }

@@ -1,18 +1,24 @@
 "use client"
 
 import {
-  ArrowUpRight,
-  Link,
+  Archive,
+  Folder,
   MoreHorizontal,
-  StarOff,
-  Trash2,
+  Pencil,
+  Pin,
+  PinOff,
+  Trash,
 } from "lucide-react"
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -52,9 +58,11 @@ export function NavThreads({
 export function NavThreadItem({
   thread,
   isMobile,
+  isPinned = false,
 }: {
   thread: SidebarThread
   isMobile: boolean
+  isPinned?: boolean
 }) {
   return (
     <SidebarMenuItem>
@@ -74,6 +82,53 @@ export function NavThreadItem({
           <MoreHorizontal />
           <span className="sr-only">More</span>
         </DropdownMenuTrigger>
+
+        <DropdownMenuContent
+          className="w-48"
+          side={isMobile ? "bottom" : "right"}
+          align={isMobile ? "end" : "start"}
+        >
+          <DropdownMenuItem>
+            <Pencil className="text-muted-foreground" />
+            <span>Rename</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            {isPinned ? (
+              <PinOff className="text-muted-foreground" />
+            ) : (
+              <Pin className="text-muted-foreground" />
+            )}
+            <span>{isPinned ? "Unpinned" : "Pin"}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Archive className="text-muted-foreground" />
+            <span>Archive</span>
+          </DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Folder className="text-muted-foreground" />
+              <span>Move to Project</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent
+                className="w-40"
+              >
+                <DropdownMenuItem>New Project</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Email</DropdownMenuItem>
+                <DropdownMenuItem>Message</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+
+          <DropdownMenuSeparator />
+          <DropdownMenuItem variant="destructive">
+            <Trash />
+            <span>Delete</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+
       </DropdownMenu>
     </SidebarMenuItem>
   )
