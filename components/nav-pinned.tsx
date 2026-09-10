@@ -14,7 +14,7 @@ export function NavPinned({ pinned }: { pinned: SidebarPinnedItem[] }) {
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>
+      <SidebarGroupLabel className="font-semibold text-muted-foreground text-sm">
         Pinned
       </SidebarGroupLabel>
       <SidebarMenu>

@@ -43,7 +43,7 @@ export function NavThreads({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>
+      <SidebarGroupLabel className="font-semibold text-muted-foreground text-sm">
         {label}
       </SidebarGroupLabel>
       <SidebarMenu>
@@ -70,6 +70,7 @@ export function NavThreadItem({
         render={
           <a href={thread.url} title={thread.name} aria-label={thread.name} />
         }
+        className="text-sm"
       >
         <span>{thread.name}</span>
       </SidebarMenuButton>

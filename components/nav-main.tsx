@@ -1,4 +1,4 @@
-import { Clock7, LibraryBig, SquarePen } from "lucide-react"
+import { Clock7, ImagesIcon, LibraryBig, SquarePen } from "lucide-react"
 
 import {
   SidebarGroup,
@@ -9,6 +9,7 @@ import {
 
 const mainItems = [
   { label: "New Chat", icon: SquarePen },
+  { label: "Images", icon: ImagesIcon },
   { label: "Library", icon: LibraryBig },
   { label: "Scheduled", icon: Clock7 },
 ]

@@ -22,7 +22,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarBrand />
         <NavMain />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="gap-2">
         <NavPinned pinned={sidebarData.pinned} />
         <NavProjects label="Projects" projects={sidebarData.projects} />
         <NavThreads label="Chats" threads={sidebarData.threads} />

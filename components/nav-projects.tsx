@@ -51,7 +51,7 @@ export function NavProjects({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
+      <SidebarGroupLabel className="font-semibold text-muted-foreground text-sm">
         {label}
       </SidebarGroupLabel>
       <SidebarGroupContent>
@@ -81,7 +81,7 @@ export function NavProjectItem({
           render={
             <SidebarMenuButton
               aria-label={`Toggle ${project.name}`}
-              className="data-[state=open]:bg-sidebar-accent"
+              className="data-[state=open]:bg-sidebar-accent text-sm"
             />
           }
         >
@@ -161,11 +161,11 @@ function NavProjectPageItem({
       <SidebarMenuSubButton
         render={<a href={page.url} title={page.name} aria-label={page.name} />}
         // {/* Reserve room for the action button and... 
-        className="pr-8 w-full"
+        className="pr-8 w-full text-sm"
       >
         <span
           // ...truncate long page names with an ellipsis. */}
-          className="min-w-0 truncate"
+          className="min-w-0 text-sm truncate"
         >
           {page.name}
         </span>
