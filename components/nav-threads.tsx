@@ -5,10 +5,12 @@ import {
   ChevronDown,
   ChevronRight,
   Folder,
+  ListFilter,
   MoreHorizontal,
   Pencil,
   Pin,
   PinOff,
+  SquarePen,
   Trash,
 } from "lucide-react"
 
@@ -16,12 +18,15 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu"
 import {
   Collapsible,
@@ -38,6 +43,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import type { SidebarThread } from "@/data/sidebar"
+import * as React from "react"
 
 export function NavThreads({
   label = "Chats",
@@ -47,29 +53,70 @@ export function NavThreads({
   threads: SidebarThread[]
 }) {
   const { isMobile } = useSidebar()
+  const [sortBy, setSortBy] = React.useState("last-active")
+  const sortedThreads = [...threads].sort((a, b) => {
+    const aValue = sortBy === "created-at" ? a.createdAt : a.lastActiveAt
+    const bValue = sortBy === "created-at" ? b.createdAt : b.lastActiveAt
+    return (bValue ?? 0) - (aValue ?? 0)
+  })
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden text-sm">
-      <Collapsible defaultOpen className="group/section">
-        <CollapsibleTrigger
-          className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
-          render={
-            <SidebarGroupLabel
-              render={
-                <button
-                  type="button"
-                />
-              }
-            />
-          }
-        >
-          <span>{label}</span>
-          <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
-          <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
-        </CollapsibleTrigger>
+      <Collapsible defaultOpen>
+        <div className="group/section relative">
+          <CollapsibleTrigger
+            className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+            render={
+              <SidebarGroupLabel
+                render={
+                  <button
+                    type="button"
+                  />
+                }
+              />
+            }
+          >
+            <span>{label}</span>
+            <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
+            <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
+          </CollapsibleTrigger>
+          <div className="top-2.5 right-3 absolute flex items-center gap-1">
+            <button
+              type="button"
+              aria-label="New chat"
+              className="flex justify-center items-center hover:bg-transparent opacity-0 focus-visible:opacity-100 group-focus-within/section:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity"
+            >
+              <SquarePen className="stroke-[1.5] size-4" />
+            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="Filter chats"
+                    className="flex justify-center items-center hover:bg-transparent opacity-0 focus-visible:opacity-100 group-focus-within/section:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity"
+                  />
+                }
+              >
+                <ListFilter className="stroke-[1.5] size-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-36">
+                <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
+                  <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+                  <DropdownMenuRadioItem value="last-active">
+                    Last active
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="created-at">
+                    Created at
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
         <CollapsibleContent>
           <SidebarMenu>
-            {threads.map((item) => (
+            {sortedThreads.map((item) => (
               <NavThreadItem key={item.name} thread={item} isMobile={isMobile} />
             ))}
           </SidebarMenu>

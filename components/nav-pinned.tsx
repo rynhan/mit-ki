@@ -21,7 +21,7 @@ export function NavPinned({ pinned }: { pinned: SidebarPinnedItem[] }) {
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup className="group-data-[collapsible=icon]:hidden mt-1.5">
       <Collapsible defaultOpen className="group/section">
         <CollapsibleTrigger
           className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"

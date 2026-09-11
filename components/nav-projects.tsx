@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ChevronRight,
   Folder,
+  FolderPlus,
   MoreHorizontal,
   Pencil,
   Pin,
@@ -53,23 +54,32 @@ export function NavProjects({
 }) {
   return (
     <SidebarGroup>
-      <Collapsible defaultOpen className="group/section">
-        <CollapsibleTrigger
-          className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
-          render={
-            <SidebarGroupLabel
-              render={
-                <button
-                  type="button"
-                />
-              }
-            />
-          }
-        >
-          {label}
-          <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
-          <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
-        </CollapsibleTrigger>
+      <Collapsible defaultOpen>
+        <div className="group/section relative">
+          <CollapsibleTrigger
+            className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+            render={
+              <SidebarGroupLabel
+                render={
+                  <button
+                    type="button"
+                  />
+                }
+              />
+            }
+          >
+            {label}
+            <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
+            <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
+          </CollapsibleTrigger>
+          <button
+            type="button"
+            aria-label={`Add ${label}`}
+            className="top-2.5 right-3 absolute flex justify-center items-center hover:bg-transparent opacity-0 focus-visible:opacity-100 group-focus-within/section:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity"
+          >
+            <FolderPlus className="stroke-[1.5] size-4" />
+          </button>
+        </div>
         <CollapsibleContent>
           <SidebarGroupContent>
             <SidebarMenu>

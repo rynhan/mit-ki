@@ -1,7 +1,8 @@
 export type SidebarThread = {
   name: string
   url: string
-  emoji: string
+  createdAt: number
+  lastActiveAt: number
 }
 
 export type SidebarProject = {
@@ -33,52 +34,62 @@ export const sidebarData: {
     {
       name: "Project Management & Task Tracking",
       url: "#",
-      emoji: "📊",
+      createdAt: 1711929600000,
+      lastActiveAt: 1757462400000,
     },
     {
       name: "Family Recipe Collection & Meal Planning",
       url: "#",
-      emoji: "🍳",
+      createdAt: 1714521600000,
+      lastActiveAt: 1757376000000,
     },
     {
       name: "Fitness Tracker & Workout Routines",
       url: "#",
-      emoji: "💪",
+      createdAt: 1717200000000,
+      lastActiveAt: 1757289600000,
     },
     {
       name: "Book Notes & Reading List",
       url: "#",
-      emoji: "📚",
+      createdAt: 1719792000000,
+      lastActiveAt: 1757203200000,
     },
     {
       name: "Sustainable Gardening Tips & Plant Care",
       url: "#",
-      emoji: "🌱",
+      createdAt: 1722470400000,
+      lastActiveAt: 1757116800000,
     },
     {
       name: "Language Learning Progress & Resources",
       url: "#",
-      emoji: "🗣️",
+      createdAt: 1725148800000,
+      lastActiveAt: 1757030400000,
     },
     {
       name: "Home Renovation Ideas & Budget Tracker",
       url: "#",
-      emoji: "🏠",
+      createdAt: 1727740800000,
+      lastActiveAt: 1756944000000,
     },
     {
       name: "Personal Finance & Investment Portfolio",
       url: "#",
-      emoji: "💰",
+      createdAt: 1730419200000,
+      lastActiveAt: 1756857600000,
     },
     {
       name: "Movie & TV Show Watchlist with Reviews",
       url: "#",
-      emoji: "🎬",
+      createdAt: 1733011200000,
+      lastActiveAt: 1756771200000,
     },
     {
       name: "Daily Habit Tracker & Goal Setting",
       url: "#",
-      emoji: "✅",
+      createdAt: 1735689600000,
+      lastActiveAt: 1756684800000,
     },
   ],
   pinned: [
@@ -88,7 +99,8 @@ export const sidebarData: {
       thread: {
         name: "What Makes a Life Meaningful?",
         url: "#",
-        emoji: "🧭",
+        createdAt: 1719792000000,
+        lastActiveAt: 1757462400000,
       },
     },
     {
@@ -97,7 +109,8 @@ export const sidebarData: {
       thread: {
         name: "How Should We Face Uncertainty?",
         url: "#",
-        emoji: "🌌",
+        createdAt: 1722470400000,
+        lastActiveAt: 1757376000000,
       },
     },
     {
@@ -110,17 +123,20 @@ export const sidebarData: {
           {
             name: "Lighting & Composition Tips",
             url: "#",
-            emoji: "🌎",
+            createdAt: 1725148800000,
+            lastActiveAt: 1757289600000,
           },
           {
             name: "Shutter Speed & Aperture Techniques",
             url: "#",
-            emoji: "🗺️",
+            createdAt: 1727740800000,
+            lastActiveAt: 1757203200000,
           },
           {
             name: "Photo Gallery",
             url: "#",
-            emoji: "",
+            createdAt: 1730419200000,
+            lastActiveAt: 1757116800000,
           },
         ],
       }
@@ -134,17 +150,20 @@ export const sidebarData: {
         {
           name: "Daily Journal & Reflection",
           url: "#",
-          emoji: "📔",
+          createdAt: 1733011200000,
+          lastActiveAt: 1757030400000,
         },
         {
           name: "Health & Wellness Tracker",
           url: "#",
-          emoji: "🍏",
+          createdAt: 1735689600000,
+          lastActiveAt: 1756944000000,
         },
         {
           name: "Personal Growth & Learning Goals",
           url: "#",
-          emoji: "🌟",
+          createdAt: 1738368000000,
+          lastActiveAt: 1756857600000,
         },
       ],
     },
@@ -155,17 +174,20 @@ export const sidebarData: {
         {
           name: "Career Objectives & Milestones",
           url: "#",
-          emoji: "🎯",
+          createdAt: 1740960000000,
+          lastActiveAt: 1756771200000,
         },
         {
           name: "Skill Acquisition & Training Log",
           url: "#",
-          emoji: "🧠",
+          createdAt: 1743638400000,
+          lastActiveAt: 1756684800000,
         },
         {
           name: "Networking Contacts & Events",
           url: "#",
-          emoji: "🤝",
+          createdAt: 1746230400000,
+          lastActiveAt: 1756598400000,
         },
       ],
     },
@@ -176,17 +198,20 @@ export const sidebarData: {
         {
           name: "Writing Ideas & Story Outlines",
           url: "#",
-          emoji: "✍️",
+          createdAt: 1748908800000,
+          lastActiveAt: 1756512000000,
         },
         {
           name: "Art & Design Portfolio",
           url: "#",
-          emoji: "🖼️",
+          createdAt: 1751500800000,
+          lastActiveAt: 1756425600000,
         },
         {
           name: "Music Composition & Practice Log",
           url: "#",
-          emoji: "🎵",
+          createdAt: 1754179200000,
+          lastActiveAt: 1756339200000,
         },
       ],
     },
@@ -197,17 +222,20 @@ export const sidebarData: {
         {
           name: "Household Budget & Expense Tracking",
           url: "#",
-          emoji: "💰",
+          createdAt: 1756771200000,
+          lastActiveAt: 1756252800000,
         },
         {
           name: "Home Maintenance Schedule & Tasks",
           url: "#",
-          emoji: "🔧",
+          createdAt: 1756857600000,
+          lastActiveAt: 1756166400000,
         },
         {
           name: "Family Calendar & Event Planning",
           url: "#",
-          emoji: "📅",
+          createdAt: 1756944000000,
+          lastActiveAt: 1756080000000,
         },
       ],
     },
@@ -218,17 +246,20 @@ export const sidebarData: {
         {
           name: "Trip Planning & Itineraries",
           url: "#",
-          emoji: "🗺️",
+          createdAt: 1757030400000,
+          lastActiveAt: 1755993600000,
         },
         {
           name: "Travel Bucket List & Inspiration",
           url: "#",
-          emoji: "🌎",
+          createdAt: 1757116800000,
+          lastActiveAt: 1755907200000,
         },
         {
           name: "Travel Journal & Photo Gallery",
           url: "#",
-          emoji: "📸",
+          createdAt: 1757203200000,
+          lastActiveAt: 1755820800000,
         },
       ],
     },
