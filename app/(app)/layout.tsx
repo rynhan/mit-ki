@@ -5,17 +5,12 @@ import {
 import { AppSidebar } from "@/components/sidebar/app-sidebar"
 import { MobileSidebarTrigger } from "@/components/sidebar/mobile-sidebar-trigger"
 
-
-
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <MobileSidebarTrigger />
       <AppSidebar collapsible="icon" />
-      <SidebarInset className="overflow-hidden">
-        {children}
-      </SidebarInset>
-
+      <SidebarInset className="overflow-hidden">{children}</SidebarInset>
     </SidebarProvider>
   )
 }

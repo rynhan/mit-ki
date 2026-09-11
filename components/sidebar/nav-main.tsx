@@ -17,10 +17,10 @@ import {
 } from "@/components/ui/sidebar"
 
 const expandedItems = [
-  { label: "New Chat", icon: SquarePen },
-  { label: "Images", icon: ImagesIcon },
-  { label: "Library", icon: LibraryBig },
-  { label: "Scheduled", icon: Clock7 },
+  { label: "New Chat", href: "/chat", icon: SquarePen },
+  { label: "Images", href: "/images", icon: ImagesIcon },
+  { label: "Library", href: "/library", icon: LibraryBig },
+  { label: "Scheduled", href: "/scheduled", icon: Clock7 },
 ]
 
 const collapsedItems = [
@@ -37,10 +37,10 @@ export function NavMain() {
 
       {/* Expanded menu */}
       <SidebarMenu className="group-data-[collapsible=icon]:hidden">
-        {expandedItems.map(({ label, icon: Icon }) => (
+        {expandedItems.map(({ label, href, icon: Icon }) => (
           <SidebarMenuItem key={label}>
             <SidebarMenuButton
-              render={<a href="#" aria-label={label} />}
+              render={<a href={href} aria-label={label} />}
               className="text-sm cursor-pointer"
             >
               <Icon />
