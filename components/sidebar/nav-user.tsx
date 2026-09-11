@@ -39,7 +39,7 @@ export function NavUser({
   user: UserProfile
 }) {
 
-  const { isMobile } = useSidebar()
+  const { isMobile, state } = useSidebar()
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const [settingsSection, setSettingsSection] = React.useState<SettingsSection>("General")
 
@@ -64,7 +64,7 @@ export function NavUser({
           >
             <Avatar className="rounded-full w-8 h-8">
               <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">SC</AvatarFallback>
+              <AvatarFallback className="rounded-full">SC</AvatarFallback>
             </Avatar>
             <div className="flex-1 grid text-sm text-left leading-tight">
               <span className="font-medium truncate">{user.name}</span>
@@ -73,7 +73,7 @@ export function NavUser({
           </DropdownMenuTrigger>
 
           <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-64 rounded-lg"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
@@ -84,7 +84,7 @@ export function NavUser({
                 <div className="flex items-center gap-2 px-1 py-1.5 text-sm text-left">
                   <Avatar className="rounded-full w-8 h-8">
                     <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className="rounded-lg">SC</AvatarFallback>
+                    <AvatarFallback className="rounded-full">SC</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 grid text-sm text-left leading-tight">
                     <span className="font-medium truncate">{user.name}</span>
@@ -96,28 +96,28 @@ export function NavUser({
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
-                className="hover:cursor-pointer"
+                className="px-3 py-1.5 text-sm cursor-pointer"
               >
                 <Sparkle />
                 Upgrade to Pro
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="hover:cursor-pointer"
+                className="px-3 py-1.5 text-sm cursor-pointer"
                 onClick={() => openSettings("Profile")}
               >
                 <CircleUserRound />
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="hover:cursor-pointer"
+                className="px-3 py-1.5 text-sm cursor-pointer"
                 onClick={() => openSettings("Personalization")}
               >
                 <Signature />
                 Personalization
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="hover:cursor-pointer"
+                className="px-3 py-1.5 text-sm cursor-pointer"
                 onClick={() => openSettings("General")}
               >
                 <Settings />
@@ -126,7 +126,7 @@ export function NavUser({
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem className="hover:cursor-pointer">
+              <DropdownMenuItem className="px-3 py-1.5 text-sm cursor-pointer">
                 <LogOut />
                 Log out
               </DropdownMenuItem>

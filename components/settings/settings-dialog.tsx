@@ -53,7 +53,7 @@ export function SettingsDialog({
           <aside className="bg-muted/25 sm:border-r border-b sm:border-b-0 w-full sm:w-56 shrink-0">
             {/* X Button */}
             <div className="flex justify-between items-center px-2 h-12 sm:h-12">
-              <DialogClose render={<Button variant="ghost" size="icon" className="rounded-full size-8" />}>
+              <DialogClose render={<Button variant="ghost" size="icon" className="rounded-full size-8 hover:cursor-pointer" />}>
                 <X className="size-4" />
               </DialogClose>
             </div>

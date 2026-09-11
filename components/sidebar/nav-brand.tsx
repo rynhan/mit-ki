@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { PanelLeft, PanelRight, Search } from "lucide-react"
 
+import { SearchDialog } from "@/components/search/search-dialog"
 import {
   SidebarGroup,
   SidebarMenu,
@@ -33,13 +34,17 @@ export function NavBrand() {
               className="rounded-full size-7 object-cover shrink-0"
             />
             <div className="flex items-center gap-1 text-muted-foreground">
-              <button
-                type="button"
-                aria-label="Search"
-                className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-muted-foreground hover:cursor-pointer"
-              >
-                <Search className="size-4" />
-              </button>
+              <SearchDialog
+                trigger={
+                  <button
+                    type="button"
+                    aria-label="Search"
+                    className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-muted-foreground hover:cursor-pointer"
+                  >
+                    <Search className="size-4" />
+                  </button>
+                }
+              />
               <button
                 type="button"
                 aria-label="Collapse sidebar"
