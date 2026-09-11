@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
-export function SidebarBrand() {
+export function NavBrand() {
 
   const { toggleSidebar } = useSidebar()
 

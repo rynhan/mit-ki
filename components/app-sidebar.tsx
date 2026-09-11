@@ -4,7 +4,7 @@ import * as React from "react"
 
 import { sidebarData } from "@/data/sidebar"
 import { userProfileData } from "@/data/user-profile"
-import { SidebarBrand } from "@/components/sidebar-brand"
+import { NavBrand } from "@/components/nav-brand"
 import { NavMain } from "@/components/nav-main"
 import { NavPinned } from "@/components/nav-pinned"
 import { NavProjects } from "./nav-projects"
@@ -22,7 +22,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader className="gap-3">
-        <SidebarBrand />
+        <NavBrand />
         <NavMain />
       </SidebarHeader>
       <SidebarContent className="gap-2">
