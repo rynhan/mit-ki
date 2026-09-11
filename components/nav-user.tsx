@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import {
   CircleUserRound,
   Signature,
@@ -29,16 +30,27 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import type { UserProfile } from "@/data/user-profile"
+import { SettingsDialog } from "@/components/settings/settings-dialog"
+import type { SettingsSection } from "@/components/settings/settings-navigation"
 
 export function NavUser({
   user,
 }: {
   user: UserProfile
 }) {
+
   const { isMobile } = useSidebar()
+  const [settingsOpen, setSettingsOpen] = React.useState(false)
+  const [settingsSection, setSettingsSection] = React.useState<SettingsSection>("General")
+
+  function openSettings(section: SettingsSection) {
+    setSettingsSection(section)
+    setSettingsOpen(true)
+  }
 
   return (
     <SidebarMenu className="w-full">
+
       <SidebarMenuItem className="w-full">
         <DropdownMenu>
 
@@ -67,6 +79,7 @@ export function NavUser({
             sideOffset={4}
           >
             <DropdownMenuGroup>
+
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-sm text-left">
                   <Avatar className="rounded-full w-8 h-8">
@@ -79,38 +92,58 @@ export function NavUser({
                   </div>
                 </div>
               </DropdownMenuLabel>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="hover:cursor-pointer">
+
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+              >
                 <Sparkle />
                 Upgrade to Pro
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="hover:cursor-pointer">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={() => openSettings("Profile")}
+              >
                 <CircleUserRound />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem className="hover:cursor-pointer">
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={() => openSettings("Personalization")}
+              >
                 <Signature />
                 Personalization
               </DropdownMenuItem>
-              <DropdownMenuItem className="hover:cursor-pointer"  >
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={() => openSettings("General")}
+              >
                 <Settings />
                 Settings
               </DropdownMenuItem>
+
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem className="hover:cursor-pointer">
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
+
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="hover:cursor-pointer">
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
           </DropdownMenuContent>
 
         </DropdownMenu>
       </SidebarMenuItem>
+
+      <SettingsDialog
+        key={`${settingsSection}-${settingsOpen}`}
+        open={settingsOpen}
+        onOpenChange={setSettingsOpen}
+        initialSection={settingsSection}
+      />
+
     </SidebarMenu>
   )
 }
