@@ -22,7 +22,7 @@ export function NavBrand() {
       <SidebarMenu className="group-data-[collapsible=icon]:hidden">
         <SidebarMenuItem className="h-9">
           <div
-            className="group/brand relative flex justify-between items-center pr-0 pl-1 w-full h-9"
+            className="group/brand relative flex justify-between items-center pr-0 pl-0.5 w-full h-9"
             data-sidebar="menu-label"
           >
             <Image
@@ -55,19 +55,19 @@ export function NavBrand() {
 
       {/* Collapsed brand */}
       <SidebarMenu className="hidden group-data-[collapsible=icon]:block">
-        <SidebarMenuItem className="h-9">
+        <SidebarMenuItem className="flex items-center h-9">
           <SidebarMenuButton
             render={<button type="button" aria-label="Expand sidebar" onClick={toggleSidebar} />}
-            className="justify-center hover:bg-sidebar-accent group-data-[collapsible=icon]:p-0! h-9 text-primary hover:text-primary"
+            className="relative justify-center hover:bg-sidebar-accent group-data-[collapsible=icon]:p-0! h-9 group-data-[collapsible=icon]:size-8! text-primary hover:text-primary"
           >
             <Image
               src="/mit-kai-von-kleki.png"
               alt="Mit-KAI"
               width={28}
               height={28}
-              className="group-hover:hidden rounded-full size-7 object-cover shrink-0"
+              className="absolute inset-0 group-hover:opacity-0 m-auto rounded-full size-7 object-cover transition-opacity shrink-0"
             />
-            <PanelRight className="hidden group-hover:block size-4" />
+            <PanelRight className="opacity-0 group-hover:opacity-100 size-4 transition-opacity" />
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
