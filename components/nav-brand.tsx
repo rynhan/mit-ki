@@ -36,7 +36,7 @@ export function NavBrand() {
               <button
                 type="button"
                 aria-label="Search"
-                className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-muted-foreground"
+                className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-muted-foreground hover:cursor-pointer"
               >
                 <Search className="size-4" />
               </button>
@@ -44,7 +44,7 @@ export function NavBrand() {
                 type="button"
                 aria-label="Collapse sidebar"
                 onClick={toggleSidebar}
-                className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8"
+                className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:cursor-pointer"
               >
                 <PanelLeft className="size-4" />
               </button>
@@ -58,7 +58,7 @@ export function NavBrand() {
         <SidebarMenuItem className="flex items-center h-9">
           <SidebarMenuButton
             render={<button type="button" aria-label="Expand sidebar" onClick={toggleSidebar} />}
-            className="relative justify-center hover:bg-sidebar-accent group-data-[collapsible=icon]:p-0! h-9 group-data-[collapsible=icon]:size-8! text-primary hover:text-primary"
+            className="relative justify-center hover:bg-sidebar-accent group-data-[collapsible=icon]:p-0! h-9 group-data-[collapsible=icon]:size-8! text-primary hover:text-primary hover:cursor-pointer"
           >
             <Image
               src="/mit-kai-von-kleki.png"
