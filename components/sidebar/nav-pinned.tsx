@@ -6,8 +6,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { NavProjectItem } from "@/components/nav-projects"
-import { NavThreadItem } from "@/components/nav-threads"
+import { NavProjectItem } from "@/components/sidebar/nav-projects"
+import { NavThreadItem } from "@/components/sidebar/nav-threads"
 import type { SidebarPinnedItem } from "@/data/sidebar"
 import {
   SidebarGroup,

@@ -4,12 +4,12 @@ import * as React from "react"
 
 import { sidebarData } from "@/data/sidebar"
 import { userProfileData } from "@/data/user-profile"
-import { NavBrand } from "@/components/nav-brand"
-import { NavMain } from "@/components/nav-main"
-import { NavPinned } from "@/components/nav-pinned"
-import { NavProjects } from "./nav-projects"
-import { NavThreads } from "@/components/nav-threads"
-import { NavUser } from "./nav-user"
+import { NavBrand } from "@/components/sidebar/nav-brand"
+import { NavMain } from "@/components/sidebar/nav-main"
+import { NavPinned } from "@/components/sidebar/nav-pinned"
+import { NavProjects } from "@/components/sidebar/nav-projects"
+import { NavThreads } from "@/components/sidebar/nav-threads"
+import { NavUser } from "@/components/sidebar/nav-user"
 import {
   Sidebar,
   SidebarContent,

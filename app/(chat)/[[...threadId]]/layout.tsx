@@ -2,8 +2,8 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-import { MobileSidebarTrigger } from "@/components/mobile-sidebar-trigger"
+import { AppSidebar } from "@/components/sidebar/app-sidebar"
+import { MobileSidebarTrigger } from "@/components/sidebar/mobile-sidebar-trigger"
 
 
 
