@@ -24,7 +24,7 @@ export function NavPinned({ pinned }: { pinned: SidebarPinnedItem[] }) {
     <SidebarGroup className="group-data-[collapsible=icon]:hidden mt-1.5">
       <Collapsible defaultOpen className="group/section">
         <CollapsibleTrigger
-          className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+          className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm cursor-pointer"
           render={
             <SidebarGroupLabel
               render={

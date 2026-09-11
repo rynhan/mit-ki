@@ -22,7 +22,7 @@ export function NavMain() {
           <SidebarMenuItem key={label}>
             <SidebarMenuButton
               render={<a href="#" aria-label={label} />}
-              className="text-sm"
+              className="text-sm cursor-pointer"
             >
               <Icon />
               <span>{label}</span>

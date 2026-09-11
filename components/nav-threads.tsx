@@ -62,10 +62,10 @@ export function NavThreads({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden text-sm">
-      <Collapsible defaultOpen>
-        <div className="group/section relative">
+      <Collapsible defaultOpen className="group/section">
+        <div className="relative">
           <CollapsibleTrigger
-            className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+            className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm cursor-pointer"
             render={
               <SidebarGroupLabel
                 render={
@@ -80,13 +80,13 @@ export function NavThreads({
             <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
             <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
           </CollapsibleTrigger>
-          <div className="top-2.5 right-3 absolute flex items-center gap-1">
+          <div className="top-1/2 right-1.5 absolute flex items-center gap-1 -translate-y-1/2">
             <button
               type="button"
               aria-label="New chat"
-              className="flex justify-center items-center hover:bg-transparent opacity-0 focus-visible:opacity-100 group-focus-within/section:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity"
+              className="flex justify-center items-center opacity-0 focus-visible:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity cursor-pointer"
             >
-              <SquarePen className="stroke-[1.5] size-4" />
+              <SquarePen className="stroke-[1.5] hover:stroke-2 size-4" />
             </button>
             <DropdownMenu>
               <DropdownMenuTrigger
@@ -94,11 +94,11 @@ export function NavThreads({
                   <button
                     type="button"
                     aria-label="Filter chats"
-                    className="flex justify-center items-center hover:bg-transparent opacity-0 focus-visible:opacity-100 group-focus-within/section:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity"
+                    className="flex justify-center items-center opacity-0 focus-visible:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity cursor-pointer"
                   />
                 }
               >
-                <ListFilter className="stroke-[1.5] size-4" />
+                <ListFilter className="stroke-[1.5] hover:stroke-2 size-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-36">
                 <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
@@ -141,14 +141,17 @@ export function NavThreadItem({
         render={
           <a href={thread.url} title={thread.name} aria-label={thread.name} />
         }
-        className="text-sm"
+        className="text-sm cursor-pointer"
       >
         <span>{thread.name}</span>
       </SidebarMenuButton>
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
-            <SidebarMenuAction showOnHover aria-label={`Actions for ${thread.name}`} />
+            <SidebarMenuAction
+              aria-label={`Actions for ${thread.name}`}
+              className="opacity-0 aria-expanded:opacity-100 md:opacity-0 hover:opacity-100 peer-hover/menu-button:opacity-100 cursor-pointer"
+            />
           }
         >
           <MoreHorizontal />

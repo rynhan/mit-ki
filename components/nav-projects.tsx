@@ -54,10 +54,10 @@ export function NavProjects({
 }) {
   return (
     <SidebarGroup>
-      <Collapsible defaultOpen>
-        <div className="group/section relative">
+      <Collapsible defaultOpen className="group/section">
+        <div className="relative">
           <CollapsibleTrigger
-            className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+            className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm cursor-pointer"
             render={
               <SidebarGroupLabel
                 render={
@@ -75,9 +75,9 @@ export function NavProjects({
           <button
             type="button"
             aria-label={`Add ${label}`}
-            className="top-2.5 right-3 absolute flex justify-center items-center hover:bg-transparent opacity-0 focus-visible:opacity-100 group-focus-within/section:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity"
+            className="top-1/2 right-2 absolute flex justify-center items-center opacity-0 focus-visible:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity -translate-y-1/2 cursor-pointer"
           >
-            <FolderPlus className="stroke-[1.5] size-4" />
+            <FolderPlus className="stroke-[1.5] hover:stroke-2 size-4" />
           </button>
         </div>
         <CollapsibleContent>
@@ -110,7 +110,7 @@ export function NavProjectItem({
           render={
             <SidebarMenuButton
               aria-label={`Toggle ${project.name}`}
-              className="data-[state=open]:bg-sidebar-accent text-sm"
+              className="data-[state=open]:bg-sidebar-accent text-sm cursor-pointer"
             />
           }
         >
@@ -122,7 +122,7 @@ export function NavProjectItem({
             render={
               <SidebarMenuAction
                 // {/* Show the parent action only when the parent row is hovered or focused. */}
-                className="opacity-0 aria-expanded:opacity-100 md:opacity-0 peer-focus-visible/menu-button:opacity-100 peer-hover/menu-button:opacity-100"
+                className="opacity-0 aria-expanded:opacity-100 md:opacity-0 hover:opacity-100 peer-hover/menu-button:opacity-100 cursor-pointer"
                 aria-label={`Actions for ${project.name}`}
               />
             }
@@ -190,7 +190,7 @@ function NavProjectPageItem({
       <SidebarMenuSubButton
         render={<a href={page.url} title={page.name} aria-label={page.name} />}
         // {/* Reserve room for the action button and... 
-        className="pr-8 w-full text-sm"
+        className="pr-8 w-full text-sm cursor-pointer"
       >
         <span
           // ...truncate long page names with an ellipsis. */}
@@ -204,7 +204,7 @@ function NavProjectPageItem({
           render={
             <SidebarMenuAction
               // {/* Keep child actions scoped to the hovered or focused child row. */}
-              className="top-1 opacity-0 aria-expanded:opacity-100 md:opacity-0 group-focus-within/menu-sub-item:opacity-100 group-hover/menu-sub-item:opacity-100"
+              className="top-1 opacity-0 aria-expanded:opacity-100 md:opacity-0 hover:opacity-100 group-hover/menu-sub-item:opacity-100 cursor-pointer"
               aria-label={`Actions for ${page.name}`}
             />
           }
