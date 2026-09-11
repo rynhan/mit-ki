@@ -53,7 +53,7 @@ export function NavProjects({
   projects: SidebarProject[]
 }) {
   return (
-    <SidebarGroup>
+    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <Collapsible defaultOpen className="group/section">
         <div className="relative">
           <CollapsibleTrigger
