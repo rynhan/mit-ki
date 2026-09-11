@@ -3,14 +3,17 @@
 import * as React from "react"
 
 import { sidebarData } from "@/data/sidebar"
+import { userProfileData } from "@/data/user-profile"
 import { SidebarBrand } from "@/components/sidebar-brand"
 import { NavMain } from "@/components/nav-main"
 import { NavPinned } from "@/components/nav-pinned"
 import { NavProjects } from "./nav-projects"
 import { NavThreads } from "@/components/nav-threads"
+import { NavUser } from "./nav-user"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
@@ -27,6 +30,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects label="Projects" projects={sidebarData.projects} />
         <NavThreads label="Chats" threads={sidebarData.threads} />
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={userProfileData} />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
