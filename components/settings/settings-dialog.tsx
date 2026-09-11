@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { X } from "lucide-react"
+import { Bot, X } from "lucide-react"
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -23,6 +24,13 @@ import {
 } from "@/components/ui/breadcrumb"
 import { cn } from "@/lib/utils"
 import { GeneralSettings } from "@/components/settings/pages/general-settings"
+import {
+  ByokProviderSettings,
+  ByokSettings,
+  byokProviders,
+  customProviderDescription,
+  type ByokProvider,
+} from "@/components/settings/pages/byok-settings"
 import { PersonalizationSettings } from "@/components/settings/pages/personalization-settings"
 import { UserProfileSettings } from "@/components/settings/pages/user-profile-settings"
 import { settingsSections, type SettingsSection } from "@/components/settings/settings-navigation"
@@ -38,6 +46,7 @@ export function SettingsDialog({
 }) {
 
   const [activeSection, setActiveSection] = React.useState<SettingsSection>(initialSection)
+  const [activeProvider, setActiveProvider] = React.useState<ByokProvider | null>(null)
 
   const settingsPages: Partial<Record<SettingsSection, React.ComponentType>> = {
     General: GeneralSettings,
@@ -45,6 +54,14 @@ export function SettingsDialog({
     Personalization: PersonalizationSettings,
   }
   const ActivePage = settingsPages[activeSection]
+  const providerMetadata = activeProvider === "Custom provider"
+    ? { description: customProviderDescription, image: "" }
+    : byokProviders.find((provider) => provider.name === activeProvider)
+
+  function selectSection(section: SettingsSection) {
+    setActiveSection(section)
+    setActiveProvider(null)
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -75,7 +92,7 @@ export function SettingsDialog({
                     <button
                       key={section.label}
                       type="button"
-                      onClick={() => setActiveSection(section.label)}
+                      onClick={() => selectSection(section.label)}
                       className={cn(
                         "flex items-center gap-3 hover:bg-accent px-3 py-2 rounded-lg w-full text-sm text-left transition-colors hover:cursor-pointer",
                         isActive && "bg-accent font-medium",
@@ -99,8 +116,24 @@ export function SettingsDialog({
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>{activeSection}</BreadcrumbPage>
+                    {activeProvider ? (
+                      <BreadcrumbLink
+                        render={<button type="button" onClick={() => setActiveProvider(null)} />}
+                      >
+                        {activeSection}
+                      </BreadcrumbLink>
+                    ) : (
+                      <BreadcrumbPage>{activeSection}</BreadcrumbPage>
+                    )}
                   </BreadcrumbItem>
+                  {activeProvider && (
+                    <>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>{activeProvider}</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </>
+                  )}
                 </BreadcrumbList>
               </Breadcrumb>
               <DialogClose
@@ -113,14 +146,35 @@ export function SettingsDialog({
             <ScrollArea className="flex-1 min-h-0">
               <main className="mx-auto px-5 max-w-3xl text-[14px]">
                 <div className="mb-6">
-                  <h2 className="font-semibold text-xl tracking-tight">
-                    {activeSection}
+                  <h2 className="flex items-center gap-2 font-semibold text-xl tracking-tight">
+                    {activeProvider && activeProvider !== "Custom provider" && (
+                      <span className="relative flex justify-center items-center size-5 shrink-0">
+                        {providerMetadata?.image ? (
+                          <Image
+                            src={providerMetadata.image}
+                            alt={`${activeProvider} logo`}
+                            width={20}
+                            height={20}
+                            className="size-full object-contain"
+                          />
+                        ) : (
+                          <Bot className="size-5" />
+                        )}
+                      </span>
+                    )}
+                    {activeProvider ?? activeSection}
                   </h2>
                   <p className="mt-1 text-muted-foreground text-xs">
-                    Customize how your workspace looks and behaves.
+                    {activeProvider
+                      ? providerMetadata?.description
+                      : "Customize how your workspace looks and behaves."}
                   </p>
                 </div>
-                {ActivePage ? <ActivePage /> : (
+                {activeProvider ? (
+                  <ByokProviderSettings provider={activeProvider} />
+                ) : activeSection === "BYOK" ? (
+                  <ByokSettings onSelectProvider={setActiveProvider} />
+                ) : ActivePage ? <ActivePage /> : (
                   <section className="p-5 border rounded-xl">
                     <p className="text-muted-foreground text-sm">
                       Settings for {activeSection.toLowerCase()} will appear here.
