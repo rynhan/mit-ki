@@ -2,6 +2,8 @@
 
 import {
   Archive,
+  ChevronDown,
+  ChevronRight,
   Folder,
   MoreHorizontal,
   Pencil,
@@ -21,6 +23,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -42,15 +49,32 @@ export function NavThreads({
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel className="font-semibold text-muted-foreground text-sm">
-        {label}
-      </SidebarGroupLabel>
-      <SidebarMenu>
-        {threads.map((item) => (
-          <NavThreadItem key={item.name} thread={item} isMobile={isMobile} />
-        ))}
-      </SidebarMenu>
+    <SidebarGroup className="group-data-[collapsible=icon]:hidden text-sm">
+      <Collapsible defaultOpen className="group/section">
+        <CollapsibleTrigger
+          className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+          render={
+            <SidebarGroupLabel
+              render={
+                <button
+                  type="button"
+                />
+              }
+            />
+          }
+        >
+          <span>{label}</span>
+          <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
+          <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <SidebarMenu>
+            {threads.map((item) => (
+              <NavThreadItem key={item.name} thread={item} isMobile={isMobile} />
+            ))}
+          </SidebarMenu>
+        </CollapsibleContent>
+      </Collapsible>
     </SidebarGroup>
   )
 }

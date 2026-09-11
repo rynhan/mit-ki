@@ -2,6 +2,8 @@
 
 import {
   Archive,
+  ChevronDown,
+  ChevronRight,
   Folder,
   MoreHorizontal,
   Pencil,
@@ -51,16 +53,33 @@ export function NavProjects({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="font-semibold text-muted-foreground text-sm">
-        {label}
-      </SidebarGroupLabel>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {projects.map((workspace) => (
-            <NavProjectItem key={workspace.name} project={workspace} />
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
+      <Collapsible defaultOpen className="group/section">
+        <CollapsibleTrigger
+          className="justify-start hover:bg-transparent w-full font-semibold text-muted-foreground hover:text-muted-foreground text-sm"
+          render={
+            <SidebarGroupLabel
+              render={
+                <button
+                  type="button"
+                />
+              }
+            />
+          }
+        >
+          {label}
+          <ChevronRight className="group-data-open/section:hidden stroke-[1.5]" />
+          <ChevronDown className="hidden group-data-open/section:block stroke-[1.5]" />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {projects.map((workspace) => (
+                <NavProjectItem key={workspace.name} project={workspace} />
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </CollapsibleContent>
+      </Collapsible>
     </SidebarGroup>
   )
 }
