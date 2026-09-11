@@ -25,7 +25,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavBrand />
         <NavMain />
       </SidebarHeader>
-      <SidebarContent className="gap-2">
+      <SidebarContent className="gap-2 scroll-fade-y">
         <NavPinned pinned={sidebarData.pinned} />
         <NavProjects label="Projects" projects={sidebarData.projects} />
         <NavThreads label="Chats" threads={sidebarData.threads} />
