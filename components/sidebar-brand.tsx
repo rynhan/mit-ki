@@ -13,18 +13,18 @@ export function SidebarBrand() {
         height={28}
         className="rounded-full size-7 object-cover"
       />
-      <div className="flex items-center gap-1 text-sidebar-foreground/70">
+      <div className="flex items-center gap-1 text-muted-foreground">
         <button
           type="button"
           aria-label="Search"
-          className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-sidebar-accent-foreground"
+          className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-muted-foreground"
         >
           <Search className="size-4" />
         </button>
         <button
           type="button"
           aria-label="Toggle sidebar"
-          className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-sidebar-accent-foreground"
+          className="flex justify-center items-center hover:bg-sidebar-accent rounded-md size-8 hover:text-muted-foreground"
         >
           <PanelLeft className="size-4" />
         </button>
