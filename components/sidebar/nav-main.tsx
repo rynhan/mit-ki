@@ -8,6 +8,7 @@ import {
   Search,
   SquarePen,
 } from "lucide-react"
+import Link from "next/link"
 
 import {
   SidebarGroup,
@@ -40,7 +41,7 @@ export function NavMain() {
         {expandedItems.map(({ label, href, icon: Icon }) => (
           <SidebarMenuItem key={label}>
             <SidebarMenuButton
-              render={<a href={href} aria-label={label} />}
+              render={<Link href={href} aria-label={label} prefetch />}
               className="text-sm cursor-pointer"
             >
               <Icon />
