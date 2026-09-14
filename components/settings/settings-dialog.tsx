@@ -153,8 +153,8 @@ export function SettingsDialog({
                           <Image
                             src={providerMetadata.image}
                             alt={`${activeProvider} logo`}
-                            width={20}
-                            height={20}
+                            width={24}
+                            height={24}
                             className="size-full object-contain"
                           />
                         ) : (

@@ -40,7 +40,7 @@ export function ByokSettings({
           className="flex items-center gap-3 hover:bg-muted/50 px-4 py-3 w-full text-left transition-colors hover:cursor-pointer"
           onClick={() => onSelectProvider(provider.name)}
         >
-          <span className="relative flex justify-center items-center size-8 shrink-0">
+          <span className="relative flex justify-center items-center size-7 shrink-0">
             <Image
               src={provider.image}
               alt={`${provider.name} logo`}
@@ -61,12 +61,14 @@ export function ByokSettings({
         className="flex items-center gap-3 hover:bg-muted/50 px-4 py-3 w-full text-left transition-colors hover:cursor-pointer"
         onClick={() => onSelectProvider("Custom provider")}
       >
-        <Avatar className="rounded-full" size="lg">
-          <AvatarFallback className="rounded-full"><Plus className="size-5" /></AvatarFallback>
+        <Avatar className="rounded-full size-7">
+          <AvatarFallback className="rounded-full">
+            <Plus className="size-5" />
+          </AvatarFallback>
         </Avatar>
-          <span className="min-w-0">
+        <span className="flex-1 min-w-0">
           <span className="block font-medium text-sm">Customize provider</span>
-            <span className="block mt-1 text-muted-foreground text-xs">{customProviderDescription}</span>
+          <span className="block mt-1 text-muted-foreground text-xs">{customProviderDescription}</span>
         </span>
       </button>
     </div>
