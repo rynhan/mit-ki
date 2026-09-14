@@ -54,12 +54,19 @@ export function NavThreads({
   threads: SidebarThread[]
 }) {
   const { isMobile } = useSidebar()
-  const [sortBy, setSortBy] = React.useState("last-active")
-  const sortedThreads = [...threads].sort((a, b) => {
-    const aValue = sortBy === "created-at" ? a.createdAt : a.lastActiveAt
-    const bValue = sortBy === "created-at" ? b.createdAt : b.lastActiveAt
-    return (bValue ?? 0) - (aValue ?? 0)
-  })
+  const [sortBy, setSortBy] = React.useState<"last-active" | "created-at">(
+    "last-active"
+  )
+  const sortedThreads = React.useMemo(
+    () =>
+      [...threads].sort((a, b) => {
+        const aValue = sortBy === "created-at" ? a.createdAt : a.lastActiveAt
+        const bValue = sortBy === "created-at" ? b.createdAt : b.lastActiveAt
+
+        return bValue - aValue || a.name.localeCompare(b.name)
+      }),
+    [sortBy, threads]
+  )
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden text-sm">
@@ -102,7 +109,12 @@ export function NavThreads({
                 <ListFilter className="stroke-[1.5] hover:stroke-2 size-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-36">
-                <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
+                <DropdownMenuRadioGroup
+                  value={sortBy}
+                  onValueChange={(value) =>
+                    setSortBy(value as "last-active" | "created-at")
+                  }
+                >
                   <DropdownMenuLabel>Sort by</DropdownMenuLabel>
                   <DropdownMenuRadioItem value="last-active">
                     Last active
@@ -118,7 +130,7 @@ export function NavThreads({
         <CollapsibleContent>
           <SidebarMenu>
             {sortedThreads.map((item) => (
-              <NavThreadItem key={item.name} thread={item} isMobile={isMobile} />
+              <NavThreadItem key={item.id} thread={item} isMobile={isMobile} />
             ))}
           </SidebarMenu>
         </CollapsibleContent>

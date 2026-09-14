@@ -351,7 +351,7 @@ export const threads: Thread[] = [
     name: "Coffee Brewing Techniques",
     summary: "Comparing brewing methods and dialing in better coffee.",
     created_at: "2026-09-02T07:11:24.158161Z",
-    updated_at: "2026-09-02T12:26:54.941175Z",
+    updated_at: "2026-09-14T12:26:54.941175Z",
     is_pinned: false,
     is_temporary: false,
     chat_messages: [
@@ -483,7 +483,7 @@ export const threads: Thread[] = [
     name: "Desk Setup Improvements",
     summary: "Making a workspace more comfortable and focused.",
     created_at: "2026-08-29T07:11:24.158161Z",
-    updated_at: "2026-08-29T12:26:54.941175Z",
+    updated_at: "2026-09-13T12:26:54.941175Z",
     is_pinned: false,
     is_temporary: false,
     chat_messages: [
@@ -648,7 +648,7 @@ export const threads: Thread[] = [
     name: "Exploring Local History",
     summary: "Discovering the history of nearby places and communities.",
     created_at: "2026-08-24T07:11:24.158161Z",
-    updated_at: "2026-08-24T12:26:54.941175Z",
+    updated_at: "2026-09-12T12:26:54.941175Z",
     is_pinned: false,
     is_temporary: false,
     chat_messages: [

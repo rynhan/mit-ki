@@ -120,12 +120,14 @@ function ResultRow({
   message,
   query,
   href,
+  onSelect,
 }: {
   title: string
   date: number
   message?: string
   query: string
   href?: string
+  onSelect?: () => void
 }) {
   const content = (
     <span className="flex justify-between items-center gap-6 bg-secondary/20 hover:bg-secondary px-4 py-3 rounded-xl w-full min-h-14 text-left transition-colors">
@@ -148,7 +150,7 @@ function ResultRow({
   )
 
   return href ? (
-    <Link href={href} className="block w-full">
+    <Link href={href} onClick={onSelect} className="block w-full">
       {content}
     </Link>
   ) : (
@@ -162,7 +164,13 @@ export function SearchDialog({
   trigger: React.ReactElement
 }) {
   const [query, setQuery] = React.useState("")
+  const [open, setOpen] = React.useState(false)
   const normalizedQuery = query.trim().toLowerCase()
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    setQuery("")
+    setOpen(nextOpen)
+  }
 
   const threads = threadData as Thread[]
   const projectItems = projects as Project[]
@@ -199,7 +207,7 @@ export function SearchDialog({
   const clearQuery = () => setQuery("")
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger render={trigger} />
 
       <DialogContent
@@ -240,6 +248,7 @@ export function SearchDialog({
                     date={item.date}
                     query=""
                     href={item.href}
+                    onSelect={() => setOpen(false)}
                   />
                 </li>
               ))}
@@ -269,6 +278,7 @@ export function SearchDialog({
                     message={getMatchingMessage(thread, normalizedQuery)}
                     query={normalizedQuery}
                     href={`/chat/${thread.id}`}
+                    onSelect={() => setOpen(false)}
                   />
                 </li>
               ))}
