@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import {
   Archive,
   ChevronDown,
@@ -139,7 +140,7 @@ export function NavThreadItem({
     <SidebarMenuItem>
       <SidebarMenuButton
         render={
-          <a href={thread.url} title={thread.name} aria-label={thread.name} />
+          <Link href={thread.url} title={thread.name} aria-label={thread.name} />
         }
         className="text-sm cursor-pointer"
       >

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import {
   Archive,
   ChevronDown,
@@ -188,7 +189,7 @@ function NavProjectPageItem({
   return (
     <SidebarMenuSubItem>
       <SidebarMenuSubButton
-        render={<a href={page.url} title={page.name} aria-label={page.name} />}
+        render={<Link href={page.url} title={page.name} aria-label={page.name} />}
         // {/* Reserve room for the action button and... 
         className="pr-8 w-full text-sm cursor-pointer"
       >

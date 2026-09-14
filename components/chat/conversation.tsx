@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 import { Copy, Pencil, RefreshCw, Volume2 } from "lucide-react"
-import type { ChatMessage } from "@/data/chat"
+import type { ThreadMessage } from "@/data/threads"
 import { Markdown } from "@/components/prompt-kit/markdown"
 import { Button } from "@/components/ui/button"
 
@@ -30,7 +30,7 @@ function MessageActionButton({
   )
 }
 
-export function Conversation({ messages }: { messages: ChatMessage[] }) {
+export function Conversation({ messages }: { messages: ThreadMessage[] }) {
 
   const copyMessage = (content: string) => {
     void navigator.clipboard.writeText(content)
@@ -46,12 +46,12 @@ export function Conversation({ messages }: { messages: ChatMessage[] }) {
       {messages.map((message, index) => (
         <div
           key={message.id}
-          className={`group flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+          className={`group flex ${message.role === "human" ? "justify-end" : "justify-start"}`}
         >
           <div className="max-w-[80%] text-foreground text-sm leading-6">
             <div
               className={
-                message.role === "user"
+                message.role === "human"
                   ? "mt-9 rounded-2xl bg-[#F0EFED]/50 px-4 py-2.5"
                   : ""
               }
@@ -59,7 +59,7 @@ export function Conversation({ messages }: { messages: ChatMessage[] }) {
               <Markdown
                 id={message.id}
                 className={
-                  message.role === "assistant"
+                  message.role === "ai"
                     ? "prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base prose-p:my-3 prose-p:leading-6 prose-ul:my-1 prose-ol:my-1 prose-li:my-0 prose-a:wrap-break-word prose-blockquote:border-l-2 prose-blockquote:pl-4 prose-blockquote:not-italic prose-img:rounded-lg prose-hr:my-4 prose-table:block prose-table:max-w-full prose-table:overflow-x-auto prose-th:bg-muted prose-th:px-3 prose-th:py-2 prose-td:px-3 prose-td:py-2 space-y-1"
                     : "[&_p]:m-0 [&_p+p]:mt-2"
                 }
@@ -68,12 +68,12 @@ export function Conversation({ messages }: { messages: ChatMessage[] }) {
               </Markdown>
             </div>
             <div
-              className={`mt-1 flex gap-0 transition-opacity ${message.role === "assistant" && index === messages.length - 1
+              className={`mt-1 flex gap-0 transition-opacity ${message.role === "ai" && index === messages.length - 1
                 ? "opacity-100"
                 : "opacity-0 group-hover:opacity-100"
-                } ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                } ${message.role === "human" ? "justify-end" : "justify-start"}`}
             >
-              {message.role === "assistant" ? (
+              {message.role === "ai" ? (
                 <>
                   <MessageActionButton
                     label="Copy response"
