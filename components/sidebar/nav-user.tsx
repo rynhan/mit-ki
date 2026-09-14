@@ -39,7 +39,7 @@ export function NavUser({
   user: UserProfile
 }) {
 
-  const { isMobile, state } = useSidebar()
+  const { isMobile } = useSidebar()
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const [settingsSection, setSettingsSection] = React.useState<SettingsSection>("General")
 

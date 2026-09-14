@@ -87,7 +87,7 @@ export function SettingsDialog({
           </aside>
 
           <ScrollArea className="flex-1 min-w-0 min-h-0">
-            <main className="mx-auto p-5 sm:p-8 max-w-3xl text-[14px]">
+            <main className="mx-auto p-5 sm:p-8 max-w-3xl text-sm">
               {/* Settings page heading */}
               <div className="flex justify-between items-center mb-6">
                 <div>
