@@ -10,7 +10,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <MobileSidebarTrigger />
       <AppSidebar collapsible="icon" />
-      <SidebarInset className="overflow-hidden">{children}</SidebarInset>
+      <SidebarInset className="h-svh min-h-0 overflow-hidden">{children}</SidebarInset>
     </SidebarProvider>
   )
 }

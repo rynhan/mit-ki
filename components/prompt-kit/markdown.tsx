@@ -4,6 +4,7 @@ import { memo, useId, useMemo } from "react"
 import ReactMarkdown, { Components } from "react-markdown"
 import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
+import { ArrowUpRight } from "lucide-react"
 import { CodeBlock, CodeBlockCode } from "./code-block"
 
 export type MarkdownProps = {
@@ -34,7 +35,7 @@ const INITIAL_COMPONENTS: Partial<Components> = {
       return (
         <span
           className={cn(
-            "bg-primary-foreground rounded-sm px-1 font-mono text-sm",
+            "bg-primary-foreground px-1 rounded-sm font-mono text-sm",
             className
           )}
           {...props}
@@ -54,6 +55,20 @@ const INITIAL_COMPONENTS: Partial<Components> = {
   },
   pre: function PreComponent({ children }) {
     return <>{children}</>
+  },
+  a: function LinkComponent({ children, className, ...props }) {
+    return (
+      <a
+        className={cn(
+          "inline-flex items-center gap-0.5 text-current hover:text-blue-600 dark:hover:text-blue-400 decoration-dotted underline underline-offset-4 transition-colors",
+          className
+        )}
+        {...props}
+      >
+        <span>{children}</span>
+        <ArrowUpRight className="size-3.5 shrink-0" aria-hidden="true" />
+      </a>
+    )
   },
 }
 

@@ -24,7 +24,7 @@ export function ChatComposer() {
       <PromptInputTextarea
         placeholder="Ask anything..."
         aria-label="Ask anything..."
-        className="px-2 py-2 min-h-10 text-sm placeholder:text-sm"
+        className="px-2 py-2 min-h-10 sm:text-sm md:text-sm lg:text-sm placeholder:text-sm"
       />
       <PromptInputActions className="justify-between px-0">
         <PromptInputAction tooltip="Add attachment" side="bottom">
