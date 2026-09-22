@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
+
 import {
   CircleUserRound,
   Signature,
@@ -29,14 +31,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import type { UserProfile } from "@/data/user-profile"
 import { SettingsDialog } from "@/components/settings/settings-dialog"
 import type { SettingsSection } from "@/components/settings/settings-navigation"
+import { signOut } from "@/lib/auth-client"
+import type { AuthUser } from "@/types/auth"
 
 export function NavUser({
   user,
 }: {
-  user: UserProfile
+  user: AuthUser
 }) {
 
   const { isMobile } = useSidebar()
@@ -47,6 +50,15 @@ export function NavUser({
     setSettingsSection(section)
     setSettingsOpen(true)
   }
+
+  const router = useRouter()
+
+  const initials = user.name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase()
 
   return (
     <SidebarMenu className="w-full">
@@ -63,8 +75,8 @@ export function NavUser({
             }
           >
             <Avatar className="rounded-full w-8 h-8">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-full">SC</AvatarFallback>
+              <AvatarImage src={user.image ?? undefined} alt={user.name} />
+              <AvatarFallback className="rounded-full">{initials}</AvatarFallback>
             </Avatar>
             <div className="flex-1 grid text-sm text-left leading-tight">
               <span className="font-medium truncate">{user.name}</span>
@@ -83,8 +95,8 @@ export function NavUser({
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-sm text-left">
                   <Avatar className="rounded-full w-8 h-8">
-                    <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className="rounded-full">SC</AvatarFallback>
+                    <AvatarImage src={user.image ?? undefined} alt={user.name} />
+                    <AvatarFallback className="rounded-full">{initials}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 grid text-sm text-left leading-tight">
                     <span className="font-medium truncate">{user.name}</span>
@@ -126,7 +138,16 @@ export function NavUser({
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem className="px-3 py-1.5 text-sm cursor-pointer">
+              <DropdownMenuItem
+                className="px-3 py-1.5 text-sm cursor-pointer"
+                onClick={async () => {
+                  await signOut({
+                    fetchOptions: {
+                      onSuccess: () => router.push("/sign-in"),
+                    },
+                  })
+                }}
+              >
                 <LogOut />
                 Log out
               </DropdownMenuItem>
@@ -142,6 +163,7 @@ export function NavUser({
         open={settingsOpen}
         onOpenChange={setSettingsOpen}
         initialSection={settingsSection}
+        user={user}
       />
 
     </SidebarMenu>

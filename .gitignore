@@ -27,3 +27,6 @@ coverage/
 # OS and logs
 .DS_Store
 *.log
+
+# Development
+notes/

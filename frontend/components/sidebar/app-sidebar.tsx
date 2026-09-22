@@ -2,8 +2,6 @@
 
 import * as React from "react"
 
-import { sidebarData } from "@/data/sidebar"
-import { userProfileData } from "@/data/user-profile"
 import { NavBrand } from "@/components/sidebar/nav-brand"
 import { NavMain } from "@/components/sidebar/nav-main"
 import { NavPinned } from "@/components/sidebar/nav-pinned"
@@ -17,8 +15,16 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import type { AuthUser } from "@/types/auth"
+import { sidebarData } from "@/data/sidebar"
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  user: AuthUser
+}) {
+
   return (
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader className="gap-3">
@@ -31,7 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavThreads label="Chats" threads={sidebarData.threads} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={userProfileData} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

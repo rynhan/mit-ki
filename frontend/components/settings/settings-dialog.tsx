@@ -1,8 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Bot, X } from "lucide-react"
 import Image from "next/image"
+
+import { cn } from "cn"
+import { Bot, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -22,7 +24,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { cn } from "@/lib/utils"
 import { GeneralSettings } from "@/components/settings/pages/general-settings"
 import {
   ByokProviderSettings,
@@ -34,15 +35,18 @@ import {
 import { PersonalizationSettings } from "@/components/settings/pages/personalization-settings"
 import { UserProfileSettings } from "@/components/settings/pages/user-profile-settings"
 import { settingsSections, type SettingsSection } from "@/components/settings/settings-navigation"
+import type { AuthUser } from "@/types/auth"
 
 export function SettingsDialog({
   open,
   onOpenChange,
   initialSection = "General",
+  user,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
   initialSection?: SettingsSection
+  user: AuthUser
 }) {
 
   const [activeSection, setActiveSection] = React.useState<SettingsSection>(initialSection)
@@ -50,7 +54,7 @@ export function SettingsDialog({
 
   const settingsPages: Partial<Record<SettingsSection, React.ComponentType>> = {
     General: GeneralSettings,
-    Profile: UserProfileSettings,
+    Profile: () => <UserProfileSettings user={user} />,
     Personalization: PersonalizationSettings,
   }
   const ActivePage = settingsPages[activeSection]
