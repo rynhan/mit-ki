@@ -3,7 +3,7 @@
 from datetime import UTC, datetime
 
 from langchain_core.messages import SystemMessage
-from langgraph.graph import StateGraph
+from langgraph.graph import StateGraph, START, END
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.runtime import Runtime
 
@@ -27,7 +27,7 @@ async def chatbot(state: State, runtime: Runtime[Context]) -> dict:
 graph: CompiledStateGraph = (
     StateGraph(State, input_schema=InputState, context_schema=Context)
     .add_node("chatbot", chatbot)
-    .add_edge("__start__", "chatbot")
-    .add_edge("chatbot", "__end__")
+    .add_edge(START, "chatbot")
+    .add_edge("chatbot", END)
     .compile(name="mitki-agent")
 )
