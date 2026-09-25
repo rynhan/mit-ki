@@ -28,4 +28,4 @@ def load_chat_model(fully_specified_name: str) -> BaseChatModel:
     #     raise ValueError(
     #         f"fully_specified_name must be in 'provider/model' format, got '{fully_specified_name}'"
     #     )
-    return init_chat_model("openai/gpt-5.6-luna", model_provider="openrouter")
+    return init_chat_model(model="openai/gpt-6-luna", model_provider="openrouter")
