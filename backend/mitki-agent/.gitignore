@@ -35,3 +35,7 @@ htmlcov/
 
 # mypy
 .mypy_cache/
+
+# Development
+dev.ipynb
+src/hitl
