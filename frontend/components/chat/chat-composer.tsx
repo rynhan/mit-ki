@@ -10,15 +10,29 @@ import { Button } from "@/components/ui/button"
 import { Plus, ArrowUp } from "lucide-react"
 import { useState } from "react"
 
-export function ChatComposer() {
+export function ChatComposer({
+  onSubmit,
+  isLoading = false,
+}: {
+  onSubmit: (message: string) => void
+  isLoading?: boolean
+}) {
   const [value, setValue] = useState("")
+
+  const handleSubmit = () => {
+    const message = value.trim()
+    if (!message || isLoading) return
+    onSubmit(message)
+    setValue("")
+  }
 
   return (
     <PromptInput
       value={value}
       onValueChange={setValue}
       maxHeight={180}
-      onSubmit={() => setValue("")}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
       className="bg-background shadow-sm p-2 rounded-3xl w-full"
     >
       <PromptInputTextarea
@@ -44,9 +58,9 @@ export function ChatComposer() {
             variant="default"
             size="icon-lg"
             aria-label="Send message"
-            disabled={!value.trim()}
+            disabled={!value.trim() || isLoading}
             className="bg-[#0890FF] hover:bg-[#0890FF]/90 disabled:bg-[#0890FF]/30 disabled:opacity-100 rounded-full text-white hover:cursor-pointer"
-            onClick={() => setValue("")}
+            onClick={handleSubmit}
           >
             <ArrowUp className="size-5" />
           </Button>
