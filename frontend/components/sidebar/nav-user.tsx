@@ -31,8 +31,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { SettingsDialog } from "@/components/settings/settings-dialog"
-import type { SettingsSection } from "@/components/settings/settings-navigation"
+import { SettingsDialog } from "@/components/dialogs/settings/settings-dialog"
+import type { SettingsSection } from "@/components/dialogs/settings/settings-navigation"
 import { signOut } from "@/lib/auth-client"
 import type { AuthUser } from "@/types/auth"
 

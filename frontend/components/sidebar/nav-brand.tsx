@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { PanelLeft, PanelRight, Search } from "lucide-react"
 
-import { SearchDialog } from "@/components/search/search-dialog"
+import { SearchDialog } from "@/components/dialogs/search/search-dialog"
 import {
   SidebarGroup,
   SidebarMenu,

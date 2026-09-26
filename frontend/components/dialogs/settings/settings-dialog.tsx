@@ -24,17 +24,17 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { GeneralSettings } from "@/components/settings/pages/general-settings"
+import { GeneralSettings } from "@/components/dialogs/settings/pages/general-settings"
 import {
   ByokProviderSettings,
   ByokSettings,
   byokProviders,
   customProviderDescription,
   type ByokProvider,
-} from "@/components/settings/pages/byok-settings"
-import { PersonalizationSettings } from "@/components/settings/pages/personalization-settings"
-import { UserProfileSettings } from "@/components/settings/pages/user-profile-settings"
-import { settingsSections, type SettingsSection } from "@/components/settings/settings-navigation"
+} from "@/components/dialogs/settings/pages/byok-settings"
+import { PersonalizationSettings } from "@/components/dialogs/settings/pages/personalization-settings"
+import { UserProfileSettings } from "@/components/dialogs/settings/pages/user-profile-settings"
+import { settingsSections, type SettingsSection } from "@/components/dialogs/settings/settings-navigation"
 import type { AuthUser } from "@/types/auth"
 
 export function SettingsDialog({

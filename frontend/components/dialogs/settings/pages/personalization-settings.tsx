@@ -1,6 +1,6 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import { SettingRow } from "@/components/settings/setting-row"
+import { SettingRow } from "@/components/dialogs/settings/setting-row"
 
 const responseStyleOptions = [
   { label: "Balanced", value: "balanced" },

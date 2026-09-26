@@ -12,7 +12,7 @@ import Link from "next/link"
 import * as React from "react"
 
 import { sidebarData } from "@/data/sidebar"
-import { SearchDialog } from "@/components/search/search-dialog"
+import { SearchDialog } from "@/components/dialogs/search/search-dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -84,7 +84,7 @@ export function NavMain() {
             icon={Pin}
             isMobile={isMobile}
           >
-              {sidebarData.pinned.slice(0, 10).map((item) => (
+            {sidebarData.pinned.slice(0, 10).map((item) => (
               <DropdownMenuItem
                 key={item.id}
                 className="px-3 py-2 text-sm cursor-pointer"

@@ -1,5 +1,5 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { SettingRow } from "@/components/settings/setting-row"
+import { SettingRow } from "@/components/dialogs/settings/setting-row"
 
 const appearanceOptions = [
   { label: "System", value: "system" },
