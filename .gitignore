@@ -4,6 +4,7 @@ skills-lock.json
 
 # Dependencies
 node_modules/
+.venv
 
 # Next.js
 .next/
