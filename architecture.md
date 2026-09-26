@@ -59,7 +59,10 @@ layout; they are not yet fully implemented. Langfuse is currently under
 setup only if it remains useful.
 
 - **Authentication:** better-auth runs inside the Next.js app and persists
-  users and sessions in PostgreSQL via Prisma.
+  users and sessions in the `postgres` database via Prisma.
+- **Databases:** two databases on one PostgreSQL instance — `postgres` for
+  better-auth (frontend) and `agent_server` for Aegra (backend). See
+  *Data and infrastructure → PostgreSQL*.
 - **Local commands:** run `npm install`, then `npm run dev` from `frontend/`.
 
 ## Frontend
@@ -103,6 +106,21 @@ and `utils.py` contains model-loading helpers.
 ## Data and infrastructure
 
 ### PostgreSQL
+
+The monorepo uses **two separate databases** on the same PostgreSQL instance
+(currently a Supabase project), one per application:
+
+| Database        | Owner                    | Managed by        | Tables |
+| --------------- | ------------------------ | ----------------- | ------ |
+| `postgres`      | Frontend (better-auth)   | Prisma migrations | `user`, `session`, `account`, `verification` |
+| `agent_server`  | Backend (Aegra)          | Aegra migrations  | `threads`, `checkpoints`, `crons`, `runs`, `store`, etc. |
+
+Keeping the schemas in separate databases isolates Aegra's migrations and
+maintenance sweeps from better-auth's tables. Both databases share the
+instance's CPU, memory, and connection limits, so size the instance for the
+combined load. When connecting to managed Postgres through PgBouncer, use the
+session pooler (or a direct connection) — transaction pooling breaks asyncpg
+prepared statements. Set `PGSSLMODE=require` for TLS-terminated endpoints.
 
 The local Compose stack uses `pgvector/pgvector:pg18`. It is the primary
 persistent store. The frontend's better-auth tables are managed by Prisma
@@ -207,7 +225,8 @@ authentication, persistence, and graph behavior.
   authentication (better-auth + Prisma).
 - `backend/agent-server/` owns agent hosting, model orchestration, and graph
   execution; `mitki` is one hosted agent.
-- PostgreSQL owns durable application state.
+- PostgreSQL owns durable application state, split into two databases:
+  `postgres` (better-auth, frontend) and `agent_server` (Aegra, backend).
 - Redis owns broker and short-lived runtime concerns.
 - Deployment configuration must not leak provider credentials into source code.
 
