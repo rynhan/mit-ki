@@ -34,7 +34,7 @@ export function AppSidebar({
       <SidebarContent className="gap-2 scroll-fade-y">
         <NavPinned pinned={sidebarData.pinned} />
         <NavProjects label="Projects" projects={sidebarData.projects} />
-        <NavThreads label="Chats" threads={sidebarData.threads} />
+        <NavThreads label="Chats" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

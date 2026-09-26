@@ -1,6 +1,9 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+
 import {
   Archive,
   ChevronDown,
@@ -14,6 +17,7 @@ import {
   SquarePen,
   Trash,
 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -44,16 +48,37 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import type { SidebarThread } from "@/data/sidebar"
-import * as React from "react"
+import { useThreads, type AgentThread } from "@/hooks/use-threads"
 
-export function NavThreads({
-  label = "Chats",
-  threads,
-}: {
-  label?: string
-  threads: SidebarThread[]
-}) {
-  const { isMobile } = useSidebar()
+// Convert agent-server thread metadata into the sidebar shape.
+function toSidebarThread(thread: AgentThread): SidebarThread {
+  const title =
+    typeof thread.metadata?.title === "string" && thread.metadata.title
+      ? thread.metadata.title
+      : "New chat"
+  return {
+    id: thread.thread_id,
+    name: title,
+    summary: "",
+    created_at: thread.created_at,
+    updated_at: thread.updated_at,
+    is_pinned: false,
+    is_temporary: false,
+    chat_messages: [],
+    url: `/chat/${thread.thread_id}`,
+    createdAt: new Date(thread.created_at).getTime(),
+    lastActiveAt: new Date(thread.updated_at).getTime(),
+  }
+}
+
+export function NavThreads({ label = "Chats" }: { label?: string }) {
+  const { threads: agentThreads, loading } = useThreads()
+  const threads = React.useMemo(
+    () => agentThreads.map(toSidebarThread),
+    [agentThreads],
+  )
+  const { isMobile, setOpenMobile } = useSidebar()
+  const router = useRouter()
   const [sortBy, setSortBy] = React.useState<"last-active" | "created-at">(
     "last-active"
   )
@@ -93,6 +118,16 @@ export function NavThreads({
               type="button"
               aria-label="New chat"
               className="flex justify-center items-center opacity-0 focus-visible:opacity-100 group-hover/section:opacity-100 rounded-md focus-visible:ring-2 size-5 text-muted-foreground hover:text-muted-foreground transition-opacity cursor-pointer"
+              onClick={() => {
+                // Start a fresh chat on "/"; close the mobile sheet first so
+                // the user lands on the chat view, not behind the overlay.
+                if (isMobile) {
+                  setOpenMobile(false)
+                  router.push("/")
+                } else {
+                  router.push("/")
+                }
+              }}
             >
               <SquarePen className="stroke-[1.5] hover:stroke-2 size-4" />
             </button>
@@ -129,6 +164,16 @@ export function NavThreads({
         </div>
         <CollapsibleContent>
           <SidebarMenu>
+            {loading && threads.length === 0 && (
+              <div className="flex justify-center p-4 text-muted-foreground">
+                <Loader2 className="size-4 animate-spin" />
+              </div>
+            )}
+            {!loading && threads.length === 0 && (
+              <div className="px-2 py-1 text-muted-foreground text-sm">
+                No chats yet
+              </div>
+            )}
             {sortedThreads.map((item) => (
               <NavThreadItem key={item.id} thread={item} isMobile={isMobile} />
             ))}
@@ -148,9 +193,11 @@ export function NavThreadItem({
   isMobile: boolean
   isPinned?: boolean
 }) {
+  const pathname = usePathname()
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
+        isActive={pathname === thread.url}
         render={
           <Link href={thread.url} title={thread.name} aria-label={thread.name} />
         }

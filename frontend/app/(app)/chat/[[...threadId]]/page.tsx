@@ -10,5 +10,6 @@ export default async function ChatPage({
 
   if (!threadId?.length) redirect("/")
   if (threadId.length !== 1) notFound()
-  return <ThreadChatLoader threadId={threadId[0]} />
+  // ThreadChat reads the threadId from the URL via ThreadProvider.
+  return <ThreadChatLoader />
 }

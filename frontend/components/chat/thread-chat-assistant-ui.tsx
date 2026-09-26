@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useMemo } from "react"
-import { useStream } from "@langchain/langgraph-sdk/react"
 import {
   AssistantRuntimeProvider,
   useExternalStoreRuntime,
@@ -10,12 +9,13 @@ import {
 } from "@assistant-ui/react"
 
 import { Thread } from "@/components/assistant-ui/elements/thread.aui"
+import { useThread } from "@/components/chat/thread-provider"
 
 // Convert LangGraph SDK messages into assistant-ui's ThreadMessageLike format.
 // Only human/ai messages are rendered; string and content-part arrays both
 // collapse to plain text parts.
 function toThreadMessages(
-  messages: ReturnType<typeof useStream>["messages"],
+  messages: ReturnType<typeof useThread>["thread"]["messages"],
 ): ThreadMessageLike[] {
   return messages.flatMap((message, index) => {
     const type = message.type
@@ -32,15 +32,8 @@ function toThreadMessages(
   })
 }
 
-export default function ThreadChat({ threadId }: { threadId?: string }) {
-  const thread = useStream({
-    apiUrl: "http://localhost:2026",
-    assistantId: "mitki_agent",
-    ...(threadId ? { threadId } : {}),
-    // ponytail: replaceState keeps the stream mounted; router.replace remounts...
-    // ...the page and kills the run. Full client-side thread switching if needed later.
-    onThreadId: (id) => window.history.replaceState(null, "", `/chat/${id}`),
-  })
+export default function ThreadChat() {
+  const { thread } = useThread()
 
   const messages = useMemo(
     () => toThreadMessages(thread.messages),

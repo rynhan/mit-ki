@@ -9,6 +9,7 @@ import { AppSidebar } from "@/components/sidebar/app-sidebar"
 // Client wrapper required: this layout is a Server Component (auth session check below), and Next.js forbids `dynamic(..., { ssr: false })` here.
 // See mobile-sidebar-trigger-loader.tsx for details.
 import { MobileSidebarTriggerLoader } from "@/components/sidebar/mobile-sidebar-trigger-loader"
+import { ThreadProvider } from "@/components/chat/thread-provider"
 import { auth } from "@/lib/auth"
 
 export default async function AppLayout({
@@ -30,7 +31,9 @@ export default async function AppLayout({
       <MobileSidebarTriggerLoader />
       <AppSidebar user={session.user} collapsible="icon" />
       <SidebarInset className="h-svh min-h-0 overflow-hidden">
-        {children}
+        <ThreadProvider>
+          {children}
+        </ThreadProvider>
       </SidebarInset>
     </SidebarProvider>
   )

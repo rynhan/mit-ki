@@ -1,20 +1,13 @@
 "use client"
 
-import { useStream } from "@langchain/langgraph-sdk/react"
 import { useEffect } from "react"
 import { ChatComposer } from "@/components/chat/chat-composer"
 import { Conversation } from "@/components/chat/conversation"
+import { useThread } from "@/components/chat/thread-provider"
 import type { ThreadMessage } from "@/data/threads"
 
-export default function ThreadChat({ threadId }: { threadId?: string }) {
-  const thread = useStream({
-    apiUrl: "http://localhost:2026",
-    assistantId: "mitki_agent",
-    ...(threadId ? { threadId } : {}),
-    // ponytail: replaceState keeps the stream mounted; router.replace remounts
-    // the page and kills the run. Full client-side thread switching if needed later.
-    onThreadId: (id) => window.history.replaceState(null, "", `/chat/${id}`),
-  })
+export default function ThreadChat() {
+  const { thread } = useThread()
 
   const messages: ThreadMessage[] = thread.messages.flatMap((message, index) => {
     const type = message.type

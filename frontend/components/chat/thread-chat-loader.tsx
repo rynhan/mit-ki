@@ -19,6 +19,9 @@ const ThreadChat = dynamic(
   },
 )
 
-export function ThreadChatLoader({ threadId }: { threadId?: string }) {
-  return <ThreadChat threadId={threadId} />
+// The thread/stream itself lives in ThreadProvider (mounted in the app
+// layout); this loader only picks the UI implementation. threadId is derived
+// from the URL by the provider, so no prop is needed.
+export function ThreadChatLoader() {
+  return <ThreadChat />
 }

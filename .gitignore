@@ -1,5 +1,6 @@
 # Agent configuration
 .agents/
+.github/
 skills-lock.json
 
 # Dependencies
