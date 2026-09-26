@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Annotated
 
-from agents import prompts
+from agents.mitki_v1 import prompts
 
 
 @dataclass(kw_only=True)

@@ -7,9 +7,9 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.runtime import Runtime
 
-from .context import Context
-from .state import InputState, State
-from .utils import load_chat_model
+from agents.mitki_v1.context import Context
+from agents.mitki_v1.state import InputState, State
+from agents.mitki_v1.utils import load_chat_model
 
 
 async def chatbot(state: State, runtime: Runtime[Context]) -> dict:
