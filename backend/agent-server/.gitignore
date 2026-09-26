@@ -38,4 +38,4 @@ htmlcov/
 
 # Development
 dev.ipynb
-src/hitl
+src/agents/hitl
