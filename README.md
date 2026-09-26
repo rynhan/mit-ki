@@ -65,3 +65,5 @@ built.
 
 See [`architecture.md`](./architecture.md) for the current architecture and
 planned boundaries.
+
+Last updated: 2026-09-26
