@@ -37,6 +37,7 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const threadId = getThreadFromPath(pathname)
   const pendingTitleMessage = useRef<string | null>(null)
+  const titleRequest = useRef<Promise<void> | null>(null)
 
   const handleThreadIdChange = (newThreadId: string | null) => {
     if (!newThreadId) return
@@ -52,7 +53,7 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
     const firstText = pendingTitleMessage.current
     pendingTitleMessage.current = null
     if (firstText) {
-      void fetch("/api/threads/title", {
+      titleRequest.current = fetch("/api/threads/title", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ threadId: newThreadId, message: firstText }),
@@ -61,7 +62,6 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
           if (!response.ok) throw new Error(`Title request failed: ${response.status}`)
         })
         .catch((error) => console.error("Error generating title:", error))
-        .finally(() => window.dispatchEvent(new Event("threads:refresh")))
     }
   }
 
@@ -74,7 +74,17 @@ export function ThreadProvider({ children }: { children: ReactNode }) {
 
   const submitMessage = useCallback(async (message: string): Promise<void> => {
     if (!threadId) pendingTitleMessage.current = message
-    await thread.submit({ messages: [{ type: "human", content: message }] })
+    try {
+      await thread.submit({ messages: [{ type: "human", content: message }] })
+    } finally {
+      // Wait for the first-message title update before refreshing, so each
+      // submission triggers exactly one list fetch with final thread metadata.
+      await titleRequest.current
+      titleRequest.current = null
+      window.dispatchEvent(
+        new CustomEvent("threads:refresh", { detail: { threadId: threadId ?? undefined } }),
+      )
+    }
   }, [thread, threadId])
 
   // Normalize the empty chat route; threadId is derived directly from pathname.

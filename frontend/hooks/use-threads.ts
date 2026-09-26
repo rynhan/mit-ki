@@ -74,10 +74,16 @@ export function useThreads() {
   }, [getThreads]);
 
   useEffect(() => {
-    const refresh = () => void fetchThreads(0, false);
+    const refresh = (event: Event) => {
+      const threadId = (event as CustomEvent<{ threadId?: string }>).detail
+        ?.threadId;
+      if (!threadId || threads[0]?.thread_id !== threadId) {
+        void fetchThreads(0, false);
+      }
+    };
     window.addEventListener("threads:refresh", refresh);
     return () => window.removeEventListener("threads:refresh", refresh);
-  }, [fetchThreads]);
+  }, [fetchThreads, threads]);
 
   const loadMore = useCallback(() => {
     if (loading || !hasMore) return;
