@@ -1,9 +1,8 @@
 {
   "name": "mitki-agent",
-  "dependencies": [
-    "./src"
-  ],
+  "dependencies": ["./src"],
   "graphs": {
-    "mitki_agent": "./src/mitki_agent/graph.py:graph"
+    "mitki_agent": "./src/mitki_agent/graph.py:graph",
+    "title_generator": "./src/stateless/title_graph.py:graph"
   }
 }

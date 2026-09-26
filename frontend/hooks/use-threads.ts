@@ -73,6 +73,12 @@ export function useThreads() {
     };
   }, [getThreads]);
 
+  useEffect(() => {
+    const refresh = () => void fetchThreads(0, false);
+    window.addEventListener("threads:refresh", refresh);
+    return () => window.removeEventListener("threads:refresh", refresh);
+  }, [fetchThreads]);
+
   const loadMore = useCallback(() => {
     if (loading || !hasMore) return;
     void fetchThreads(threads.length, true);

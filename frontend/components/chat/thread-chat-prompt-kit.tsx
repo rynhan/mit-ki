@@ -7,7 +7,7 @@ import { useThread } from "@/components/chat/thread-provider"
 import type { ThreadMessage } from "@/data/threads"
 
 export default function ThreadChat() {
-  const { thread } = useThread()
+  const { thread, submitMessage } = useThread()
 
   const messages: ThreadMessage[] = thread.messages.flatMap((message, index) => {
     const type = message.type
@@ -31,7 +31,7 @@ export default function ThreadChat() {
       <ChatComposer
         isLoading={thread.isLoading}
         onSubmit={(message) => {
-          void thread.submit({ messages: [{ type: "human", content: message }] })
+          void submitMessage(message)
         }}
       />
     </div>

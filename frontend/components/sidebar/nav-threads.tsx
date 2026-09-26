@@ -53,8 +53,8 @@ import { useThreads, type AgentThread } from "@/hooks/use-threads"
 // Convert agent-server thread metadata into the sidebar shape.
 function toSidebarThread(thread: AgentThread): SidebarThread {
   const title =
-    typeof thread.metadata?.title === "string" && thread.metadata.title
-      ? thread.metadata.title
+    typeof thread.metadata?.thread_name === "string" && thread.metadata.thread_name
+      ? thread.metadata.thread_name
       : "New chat"
   return {
     id: thread.thread_id,

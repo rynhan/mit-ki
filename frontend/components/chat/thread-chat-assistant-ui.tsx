@@ -33,7 +33,7 @@ function toThreadMessages(
 }
 
 export default function ThreadChat() {
-  const { thread } = useThread()
+  const { thread, submitMessage } = useThread()
 
   const messages = useMemo(
     () => toThreadMessages(thread.messages),
@@ -47,9 +47,9 @@ export default function ThreadChat() {
         .map((part) => part.text)
         .join("")
       // ponytail: typed message objects required — bare strings break the backend OpenInference tracer.
-      await thread.submit({ messages: [{ type: "human", content: text }] })
+      await submitMessage(text)
     },
-    [thread],
+    [submitMessage],
   )
 
   const runtime = useExternalStoreRuntime({
